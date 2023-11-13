@@ -1,0 +1,23 @@
+﻿@model _52000657_LuuDucHai.Models.order 
+
+<h3 class="weight-500">Thông tin đơn hàng:</h3>
+<div class="row">
+    <p class="col-md-4">Họ tên: @Model.fullName</p>
+    <p class="col-md-4">Địa chỉ: @Model.address, @Model.locationDistrict, @Model.locationProvince</p>
+    <p class="col-md-4">Điện thoại: @Model.phone</p>
+    <p class="col-md-4">Email: @Model.email</p>
+    <p class="col-md-4">Ngày đặt: @Model.datebegin</p>
+    @if (Model.payment_method == "1")
+    {
+        <p class="col-md-4">
+            Phương thức thanh toán: Thanh toán khi nhận hàng
+        </p>
+    }
+    else
+    {
+        <p class="col-md-4">
+            Phương thức thanh toán: Chuyển khoản
+        </p>
+    }
+    <p class="col-md-4">Trạng thái: @Model.status</p>
+</div>

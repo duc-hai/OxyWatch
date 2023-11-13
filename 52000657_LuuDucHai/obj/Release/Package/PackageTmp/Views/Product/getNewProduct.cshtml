@@ -1,0 +1,68 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.product>
+
+@foreach (var i in Model)
+{
+    <div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+        <div class="product-block product-resize">
+            <div class="product-img image-resize view view-third">
+
+                <div class="product-sale">
+                    <span><label class="sale-lb">- </label> @CalSale(@i.oldPrice, @i.newPrice)%</span>
+                </div>
+
+                <a href="/@ViewBag.meta/@i.meta" title="@i.name">
+                    <img class="first-image  has-img" alt="@i.name"
+                         src="~/Uploads/products/@i.firstImg" />
+
+                    <img class="second-image" src="~/Uploads/products/@i.secondImg"
+                         alt="@i.name" />
+
+                </a>
+                <div class="actionss">
+                    <div class="btn-cart-products">
+                        <a href="them-gio-hang?productId=@i.id&quantity=1">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="view-details">
+                        <a href="/@ViewBag.meta/@i.meta" class="view-detail">
+                            <span><i class="fa fa-info-circle"> </i></span>
+                        </a>
+                    </div>
+                    <div class="btn-quickview-products">
+                        <a href="javascript:void(0);" class="quickview"
+                           data-handle="/@ViewBag.meta/@i.meta"><i class="fa fa-eye"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="product-detail clearfix">
+                <h3 class="pro-name">
+                    <a href="/@ViewBag.meta/@i.meta"
+                       title="@i.name">@i.name</a>
+                </h3>
+                <div class="pro-prices">
+                    <p class="pro-price">@Currency(@i.newPrice)</p>
+                    <p class="pro-price-del text-left"><del class="compare-price">@Currency(@i.oldPrice)</del></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@{ //hàm dùng để format integer dưới dạng currency
+    string Currency(int? curr)
+    {
+        return String.Format("{0:#,#.}", curr) + "đ";
+    }
+}
+
+
+@{ //hàm tính phần trăm giảm giá. Công thức sẽ là lấy giá mới chia giá gốc nhân 100 và lấy 100 trừ số hiện tại
+    double CalSale(int? oldPrice, int? newPrice)
+    {
+        return 100 - Math.Round(Convert.ToDouble(newPrice) / Convert.ToDouble(oldPrice) * 100);
+    }
+}

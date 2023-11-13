@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OxyWatchModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="500" />
+    <Property Name="password" Type="varchar" MaxLength="500" />
+    <Property Name="role" Type="int" />
+    <Property Name="images" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="banner">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title1" Type="nvarchar" MaxLength="100" />
+    <Property Name="title2" Type="nvarchar" MaxLength="100" />
+    <Property Name="src" Type="varchar" MaxLength="150" />
+    <Property Name="link" Type="nvarchar" MaxLength="50" />
+    <Property Name="meta" Type="nvarchar" MaxLength="50" />
+    <Property Name="hide" Type="bit" />
+    <Property Name="arrange" Type="int" />
+    <Property Name="datebegin" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="link" Type="nvarchar" MaxLength="50" />
+    <Property Name="meta" Type="nvarchar" MaxLength="50" />
+    <Property Name="hide" Type="bit" />
+    <Property Name="order" Type="int" />
+    <Property Name="datebegin" Type="smalldatetime" />
+    <Property Name="idmenu" Type="int" />
+  </EntityType>
+  <EntityType Name="inforShop">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="shopname" Type="nvarchar" MaxLength="100" />
+    <Property Name="logoshop" Type="varchar" MaxLength="50" />
+    <Property Name="introduce" Type="nvarchar" MaxLength="500" />
+    <Property Name="address" Type="nvarchar" MaxLength="100" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="phone" Type="varchar" MaxLength="20" />
+    <Property Name="linkfb" Type="varchar" MaxLength="50" />
+    <Property Name="meta" Type="nvarchar" MaxLength="50" />
+    <Property Name="hide" Type="bit" />
+    <Property Name="order" Type="int" />
+    <Property Name="datebegin" Type="smalldatetime" />
+    <Property Name="lat" Type="float" />
+    <Property Name="lng" Type="float" />
+  </EntityType>
+  <EntityType Name="menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="mname" Type="nvarchar" MaxLength="50" />
+    <Property Name="link" Type="nvarchar" MaxLength="50" />
+    <Property Name="meta" Type="nvarchar" MaxLength="50" />
+    <Property Name="hide" Type="bit" />
+    <Property Name="arrange" Type="int" />
+    <Property Name="datebegin" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="news">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="800" />
+    <Property Name="image" Type="varchar" MaxLength="300" />
+    <Property Name="description" Type="nvarchar" MaxLength="800" />
+    <Property Name="detail" Type="nvarchar(max)" />
+    <Property Name="meta" Type="varchar" MaxLength="200" />
+    <Property Name="hide" Type="bit" />
+    <Property Name="order" Type="int" />
+    <Property Name="datebegin" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="orderDetail">
+    <Key>
+      <PropertyRef Name="productId" />
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="productId" Type="int" Nullable="false" />
+    <Property Name="orderId" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" />
+    <Property Name="price" Type="int" />
+  </EntityType>
+  <EntityType Name="orders">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerId" Type="int" />
+    <Property Name="status" Type="nvarchar" MaxLength="100" />
+    <Property Name="datebegin" Type="smalldatetime" />
+    <Property Name="meta" Type="varchar" MaxLength="200" />
+    <Property Name="address" Type="nvarchar" MaxLength="500" />
+    <Property Name="locationProvince" Type="nvarchar" MaxLength="200" />
+    <Property Name="locationDistrict" Type="nvarchar" MaxLength="200" />
+    <Property Name="payment_method" Type="nvarchar" MaxLength="100" />
+    <Property Name="phone" Type="varchar" MaxLength="15" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="fullName" Type="nvarchar" MaxLength="400" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="300" />
+    <Property Name="firstImg" Type="varchar" MaxLength="500" />
+    <Property Name="secondImg" Type="varchar" MaxLength="500" />
+    <Property Name="oldPrice" Type="int" />
+    <Property Name="newPrice" Type="int" />
+    <Property Name="soluotban" Type="int" />
+    <Property Name="meta" Type="varchar" MaxLength="200" />
+    <Property Name="hide" Type="bit" />
+    <Property Name="order" Type="int" />
+    <Property Name="datebegin" Type="smalldatetime" />
+    <Property Name="idCate" Type="int" />
+    <Property Name="status" Type="nvarchar" MaxLength="30" />
+    <Property Name="origin" Type="nvarchar" MaxLength="30" />
+    <Property Name="warranty" Type="nvarchar" MaxLength="100" />
+    <Property Name="caseMaterial" Type="nvarchar" MaxLength="100" />
+    <Property Name="faceMaterial" Type="nvarchar" MaxLength="100" />
+    <Property Name="energyUsed" Type="nvarchar" MaxLength="30" />
+    <Property Name="waterResistant" Type="nvarchar" MaxLength="100" />
+    <Property Name="faceSize" Type="nvarchar" MaxLength="100" />
+    <Property Name="strapSize" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__category__idmenu__30C33EC3">
+    <End Role="menu" Type="Self.menu" Multiplicity="0..1" />
+    <End Role="category" Type="Self.category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="menu">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="category">
+        <PropertyRef Name="idmenu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orderDeta__order__1E6F845E">
+    <End Role="orders" Type="Self.orders" Multiplicity="1" />
+    <End Role="orderDetail" Type="Self.orderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderDetail">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product__idCate__339FAB6E">
+    <End Role="category" Type="Self.category" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="idCate" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OxyWatchModelStoreContainer">
+    <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="banner" EntityType="Self.banner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="inforShop" EntityType="Self.inforShop" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="menu" EntityType="Self.menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orderDetail" EntityType="Self.orderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__category__idmenu__30C33EC3" Association="Self.FK__category__idmenu__30C33EC3">
+      <End Role="menu" EntitySet="menu" />
+      <End Role="category" EntitySet="category" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orderDeta__order__1E6F845E" Association="Self.FK__orderDeta__order__1E6F845E">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="orderDetail" EntitySet="orderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product__idCate__339FAB6E" Association="Self.FK__product__idCate__339FAB6E">
+      <End Role="category" EntitySet="category" />
+      <End Role="product" EntitySet="product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

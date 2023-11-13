@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OxyWatchModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="OxyWatchEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="banners" EntityType="OxyWatchModel.banner" />
+    <EntitySet Name="inforShops" EntityType="OxyWatchModel.inforShop" />
+    <EntitySet Name="menus" EntityType="OxyWatchModel.menu" />
+    <EntitySet Name="products" EntityType="OxyWatchModel.product" />
+    <EntitySet Name="categories" EntityType="OxyWatchModel.category" />
+    <AssociationSet Name="FK__category__idmenu__04E4BC85" Association="OxyWatchModel.FK__category__idmenu__04E4BC85">
+      <End Role="menu" EntitySet="menus" />
+      <End Role="category" EntitySet="categories" />
+    </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="OxyWatchModel.sysdiagram" />
+    <AssociationSet Name="FK__product__idCate__160F4887" Association="OxyWatchModel.FK__product__idCate__160F4887">
+      <End Role="category" EntitySet="categories" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <EntitySet Name="news" EntityType="OxyWatchModel.news" />
+    <EntitySet Name="accounts" EntityType="OxyWatchModel.account" />
+    <EntitySet Name="orderDetails" EntityType="OxyWatchModel.orderDetail" />
+    <EntitySet Name="orders" EntityType="OxyWatchModel.order" />
+    <AssociationSet Name="FK__orderDeta__order__14E61A24" Association="OxyWatchModel.FK__orderDeta__order__14E61A24">
+      <End Role="order" EntitySet="orders" />
+      <End Role="orderDetail" EntitySet="orderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="banner">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="title1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="title2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="src" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hide" Type="Boolean" />
+    <Property Name="arrange" Type="Int32" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="inforShop">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="shopname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="logoshop" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="introduce" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="linkfb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hide" Type="Boolean" />
+    <Property Name="order" Type="Int32" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+    <Property Name="lat" Type="Double" />
+    <Property Name="lng" Type="Double" />
+  </EntityType>
+  <EntityType Name="menu">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="mname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hide" Type="Boolean" />
+    <Property Name="arrange" Type="Int32" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="categories" Relationship="OxyWatchModel.FK__category__idmenu__04E4BC85" FromRole="menu" ToRole="category" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="firstImg" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="secondImg" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="oldPrice" Type="Int32" />
+    <Property Name="newPrice" Type="Int32" />
+    <Property Name="soluotban" Type="Int32" />
+    <Property Name="meta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="hide" Type="Boolean" />
+    <Property Name="order" Type="Int32" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+    <Property Name="idCate" Type="Int32" />
+    <NavigationProperty Name="category" Relationship="OxyWatchModel.FK__product__idCate__160F4887" FromRole="product" ToRole="category" />
+    <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="origin" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="warranty" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="caseMaterial" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="faceMaterial" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="energyUsed" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="waterResistant" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="faceSize" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="strapSize" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="meta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hide" Type="Boolean" />
+    <Property Name="order" Type="Int32" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+    <Property Name="idmenu" Type="Int32" />
+    <NavigationProperty Name="menu" Relationship="OxyWatchModel.FK__category__idmenu__04E4BC85" FromRole="category" ToRole="menu" />
+    <NavigationProperty Name="products" Relationship="OxyWatchModel.FK__product__idCate__160F4887" FromRole="category" ToRole="product" />
+  </EntityType>
+  <Association Name="FK__category__idmenu__04E4BC85">
+    <End Type="OxyWatchModel.menu" Role="menu" Multiplicity="0..1" />
+    <End Type="OxyWatchModel.category" Role="category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="menu">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="category">
+        <PropertyRef Name="idmenu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__product__idCate__160F4887">
+    <End Type="OxyWatchModel.category" Role="category" Multiplicity="0..1" />
+    <End Type="OxyWatchModel.product" Role="product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="idCate" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="news">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="image" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="800" FixedLength="false" Unicode="true" />
+    <Property Name="detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="meta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="hide" Type="Boolean" />
+    <Property Name="order" Type="Int32" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="role" Type="Int32" />
+    <Property Name="images" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="orderDetail">
+    <Key>
+      <PropertyRef Name="productId" />
+      <PropertyRef Name="orderId" />
+    </Key>
+    <Property Name="productId" Type="Int32" Nullable="false" />
+    <Property Name="orderId" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="order" Relationship="OxyWatchModel.FK__orderDeta__order__14E61A24" FromRole="orderDetail" ToRole="order" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerId" Type="Int32" />
+    <Property Name="status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="datebegin" Type="DateTime" Precision="0" />
+    <Property Name="meta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="orderDetails" Relationship="OxyWatchModel.FK__orderDeta__order__14E61A24" FromRole="order" ToRole="orderDetail" />
+    <Property Name="locationProvince" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="locationDistrict" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="payment_method" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fullName" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK__orderDeta__order__14E61A24">
+    <End Type="OxyWatchModel.order" Role="order" Multiplicity="1" />
+    <End Type="OxyWatchModel.orderDetail" Role="orderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="orderDetail">
+        <PropertyRef Name="orderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

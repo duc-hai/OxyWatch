@@ -1,0 +1,145 @@
+﻿@model _52000657_LuuDucHai.Models.menu
+
+@{
+    ViewBag.Title = "Xóa menu";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+<style>
+    .card {
+        border: 1px solid var(--bs-danger);
+    }
+
+    .header-card {
+        margin-bottom: 10px;
+        background-color: var(--bs-danger);
+        padding: 10px 18px;
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid #ccc;
+    }
+
+    .header-title {
+        margin: 0;
+        color: #fff;
+    }
+
+    .control-label {
+        text-align: right;
+        line-height: 38px;
+    }
+
+    .form-group {
+        margin-top: 10px;
+    }
+
+    .control-label-unset {
+        text-align: right;
+    }
+
+    #hide {
+        width: 16px;
+        height: 16px;
+    }
+
+    .col-md-3 {
+        text-align: right;
+    }
+
+    .heading-confirm {
+        margin-left: 5%;
+        font-weight: 600;
+    }
+
+    .btn-back {
+        line-height: 38px;
+        text-align: left;
+    }
+</style>
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Xóa menu</h4>
+                    </div>
+                    <div>
+                        <h5 class="heading-confirm">Bạn có chắc chắn muốn xóa menu này không ?</h5>
+                        <hr/>
+                    </div>
+                    <div class="card-body">
+                        <dl class="dl-horizontal row">
+                            <dt class="col-md-3">
+                                @Html.Label("Tiêu đề")
+                                @*@Html.DisplayNameFor(model => model.mname)*@
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.mname)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Liên kết")
+                                @*@Html.DisplayNameFor(model => model.link)*@
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.link)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Meta")
+                                @*@Html.DisplayNameFor(model => model.meta)*@
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.meta)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Hiển thị")
+                                @*@Html.DisplayNameFor(model => model.hide)*@
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @(Model.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Thứ tự")
+                                @*@Html.DisplayNameFor(model => model.arrange)*@
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.arrange)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Ngày cập nhật")
+                                @*@Html.DisplayNameFor(model => model.datebegin)*@
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @(Model.datebegin.HasValue ? Model.datebegin.Value.ToString("dd/MM/yyyy") : "")
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-actions no-color row">
+                                <div class="col-md-3">
+                                    <input type="submit" value="Xóa" class="btn btn-danger" />
+                                </div>
+                                @Html.ActionLink("Trở về", "Index", null, new { @class = "col-md-3 btn-back" })
+                                <div class="col-md-6"></div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

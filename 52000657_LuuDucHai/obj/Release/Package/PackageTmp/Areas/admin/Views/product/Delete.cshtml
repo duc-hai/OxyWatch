@@ -1,0 +1,257 @@
+﻿@model _52000657_LuuDucHai.Models.product
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+<style>
+    .card {
+        border: 1px solid var(--bs-danger);
+    }
+
+    .header-card {
+        margin-bottom: 10px;
+        background-color: var(--bs-danger);
+        padding: 10px 18px;
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid #ccc;
+    }
+
+    .header-title {
+        margin: 0;
+        color: #fff;
+    }
+
+    .control-label {
+        text-align: right;
+        line-height: 38px;
+    }
+
+    .form-group {
+        margin-top: 10px;
+    }
+
+    .control-label-unset {
+        text-align: right;
+    }
+
+    #hide {
+        width: 16px;
+        height: 16px;
+    }
+
+    .col-md-3 {
+        text-align: right;
+    }
+
+    .heading-confirm {
+        margin-left: 5%;
+        font-weight: 600;
+    }
+
+    .btn-back {
+        line-height: 38px;
+        text-align: left;
+    }
+
+    .vertical-item {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+</style>
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Xóa sản phẩm</h4>
+                    </div>
+                    <div>
+                        <h5 class="heading-confirm">Bạn có chắc chắn muốn xóa sản phẩm này không ?</h5>
+                        <hr />
+                    </div>
+                    <div class="card-body">
+                        <dl class="dl-horizontal row">
+                            <dt class="col-md-3">
+                                @Html.Label("Tên sản phẩm")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.name)
+                            </dd>
+
+                            <dt class="col-md-3 vertical-item">
+                                @Html.Label("Hình ảnh 1")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                <img src="~/Uploads/products/@Model.firstImg" width="150px" />
+                            </dd>
+
+                            <dt class="col-md-2 vertical-item">
+                                @Html.Label("Hình ảnh 2")
+                            </dt>
+
+                            <dd class="col-md-4">
+                                <img src="~/Uploads/products/@Model.secondImg" width="150px" />
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Giá cũ")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.oldPrice)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Giá mới")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.newPrice)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Số lượt bán")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.soluotban)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Meta")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.meta)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Hiển thị")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @(Model.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Thứ tự")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.order)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Ngày cập nhật")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @(Model.datebegin.HasValue ? Model.datebegin.Value.ToString("dd/MM/yyyy") : "")
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Trạng thái sản phẩm")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.status)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Nguồn gốc")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.origin)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Bảo hành")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.warranty)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Chất liệu vỏ")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.caseMaterial)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Chất liệu mặt")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.faceMaterial)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Năng lượng sử dụng")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.energyUsed)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Chống nước")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.waterResistant)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Kích thước mặt")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.faceSize)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Kích thước dây")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.strapSize)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Danh mục")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.category.name)
+                            </dd>
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color row">
+                            <div class="col-md-3">
+                                <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                            </div>
+                            @Html.ActionLink("Trở về", "Index", null, new {@class = "col-md-3 btn-back" })
+                            <div class="col-md-6"></div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

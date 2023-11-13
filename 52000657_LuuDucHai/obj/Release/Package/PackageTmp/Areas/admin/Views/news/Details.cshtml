@@ -1,0 +1,136 @@
+﻿@model _52000657_LuuDucHai.Models.news
+
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+<style>
+    .card {
+        border: 1px solid var(--bs-link-hover-color);
+    }
+
+    .header-card {
+        margin-bottom: 10px;
+        background-color: var(--bs-link-hover-color);
+        padding: 10px 18px;
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid #ccc;
+    }
+
+    .header-title {
+        margin: 0;
+        color: #fff;
+    }
+
+    .control-label {
+        text-align: right;
+        line-height: 38px;
+    }
+
+    .form-group {
+        margin-top: 10px;
+    }
+
+    .control-label-unset {
+        text-align: right;
+    }
+
+    #hide {
+        width: 16px;
+        height: 16px;
+    }
+
+    .col-md-3 {
+        text-align: right;
+    }
+</style>
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Chi tiết bài viết</h4>
+                    </div>
+                    <div class="card-body">
+                        <dl class="dl-horizontal row">
+                            <dt class="col-md-3">
+                                @Html.Label("Tiêu đề")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.name)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Hình ảnh")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                <img src="~/Content/uploads/imgs/news/@Model.image" width="150px" />
+                                @*@Html.DisplayFor(model => model.image)*@
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Mô tả")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.description)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Chi tiết")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.Raw(Model.detail)
+                                @*@Html.DisplayFor(model => model.detail)*@
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Meta")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.meta)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Hiển thị")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @(Model.hide.GetValueOrDefault(false) ? "Hiển thị" : "Ẩn")
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Thứ tự")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @Html.DisplayFor(model => model.order)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Ngày cập nhật")
+                            </dt>
+
+                            <dd class="col-md-8">
+                                @(Model.datebegin.HasValue ? Model.datebegin.Value.ToString("dd/MM/yyyy") : "")
+                            </dd>
+
+                            <div>
+                            <p>
+                                @Html.ActionLink("Cập nhật", "Edit", new { id = Model.id }) |
+                                @Html.ActionLink("Quay lại", "Index")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

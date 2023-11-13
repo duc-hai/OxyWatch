@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OxyWatchModelStoreContainer" CdmEntityContainer="OxyWatchEntities1">
+    <EntitySetMapping Name="banners">
+      <EntityTypeMapping TypeName="OxyWatchModel.banner">
+        <MappingFragment StoreEntitySet="banner">
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="arrange" ColumnName="arrange" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="src" ColumnName="src" />
+          <ScalarProperty Name="title2" ColumnName="title2" />
+          <ScalarProperty Name="title1" ColumnName="title1" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="inforShops">
+      <EntityTypeMapping TypeName="OxyWatchModel.inforShop">
+        <MappingFragment StoreEntitySet="inforShop">
+          <ScalarProperty Name="lng" ColumnName="lng" />
+          <ScalarProperty Name="lat" ColumnName="lat" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="linkfb" ColumnName="linkfb" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="introduce" ColumnName="introduce" />
+          <ScalarProperty Name="logoshop" ColumnName="logoshop" />
+          <ScalarProperty Name="shopname" ColumnName="shopname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="menus">
+      <EntityTypeMapping TypeName="OxyWatchModel.menu">
+        <MappingFragment StoreEntitySet="menu">
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="arrange" ColumnName="arrange" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="mname" ColumnName="mname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="OxyWatchModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="strapSize" ColumnName="strapSize" />
+          <ScalarProperty Name="faceSize" ColumnName="faceSize" />
+          <ScalarProperty Name="waterResistant" ColumnName="waterResistant" />
+          <ScalarProperty Name="energyUsed" ColumnName="energyUsed" />
+          <ScalarProperty Name="faceMaterial" ColumnName="faceMaterial" />
+          <ScalarProperty Name="caseMaterial" ColumnName="caseMaterial" />
+          <ScalarProperty Name="warranty" ColumnName="warranty" />
+          <ScalarProperty Name="origin" ColumnName="origin" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="idCate" ColumnName="idCate" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="soluotban" ColumnName="soluotban" />
+          <ScalarProperty Name="newPrice" ColumnName="newPrice" />
+          <ScalarProperty Name="oldPrice" ColumnName="oldPrice" />
+          <ScalarProperty Name="secondImg" ColumnName="secondImg" />
+          <ScalarProperty Name="firstImg" ColumnName="firstImg" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="OxyWatchModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="idmenu" ColumnName="idmenu" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="OxyWatchModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="news">
+      <EntityTypeMapping TypeName="OxyWatchModel.news">
+        <MappingFragment StoreEntitySet="news">
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="accounts">
+      <EntityTypeMapping TypeName="OxyWatchModel.account">
+        <MappingFragment StoreEntitySet="account">
+          <ScalarProperty Name="images" ColumnName="images" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orderDetails">
+      <EntityTypeMapping TypeName="OxyWatchModel.orderDetail">
+        <MappingFragment StoreEntitySet="orderDetail">
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="OxyWatchModel.order">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="fullName" ColumnName="fullName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+          <ScalarProperty Name="locationDistrict" ColumnName="locationDistrict" />
+          <ScalarProperty Name="locationProvince" ColumnName="locationProvince" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

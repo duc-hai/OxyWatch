@@ -1,0 +1,66 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.orderDetail>
+
+<style>
+    .table-striped th {
+        text-align: center;
+    }
+
+    .center-align {
+        text-align: center;
+    }
+</style>
+
+<table style="width: 100%" class="table table-striped">
+    <thead>
+        <tr>
+            <th class="image">Hình ảnh</th>
+            <th class="item">Tên sản phẩm</th>
+            <th class="item">Giá tiền</th>
+            <th class="qty">Số lượng</th>
+            <th class="price">Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ //hàm dùng để format integer dưới dạng currency
+            string Currency(int? curr)
+            {
+                return String.Format("{0:#,#.}", curr) + "đ";
+            }
+        }
+        @{ var total = 0;}
+        @foreach (var i in Model)
+        {
+            <tr>
+                @Html.Action("getProduct", "orders", new { id = @i.productId })
+
+                <td class="item center-align">
+                    @Currency(@i.price)
+                </td>
+
+                <td class="qty center-align" style="text-align: center">
+                    @i.quantity
+                </td>
+
+                <td class="price center-align">
+                    @{
+                        var amount = i.price * i.quantity;
+                        total += int.Parse(amount.ToString());
+                    }
+                    @Currency(amount)
+                </td>
+
+            </tr>
+        }
+        <tr class="summary" style="height: 50px;">
+            <td class="image">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td class="text-center"><b>Tổng cộng:</b></td>
+            <td class="price">
+                <span class="total">
+                    <strong>@Currency(@total)</strong>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>

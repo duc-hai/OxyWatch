@@ -1,0 +1,36 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.menu>
+
+<ul class="nav navbar-nav clearfix">
+    @foreach (var i in Model)
+    {
+        if (@Html.Action("getCategory", "Default", new { id = @i.id }).ToString() != "") //Nếu menu có submenu thì thêm vào
+        {
+            <li class="dropdown">
+                @*/danh-muc/@i.meta*@
+                <a href="#" title="@i.mname" class="">
+                    <span>@i.mname</span>
+                </a>
+                @Html.Action("getCategory", "Default", new { id = @i.id })
+            </li>
+        }
+        else //Menu không có submenu
+        {
+            if (i.mname == "Trang chủ") //Nếu là trang chủ thì thêm class active mặc định
+            {
+                <li>
+                    <a href="@i.meta" class="current" title="@i.mname">
+                        <span>@i.mname</span>
+                    </a>
+                </li>
+            }
+            else //Không thêm class active
+            {
+                <li>
+                    <a href="@ViewBag.meta/@i.meta" title="@i.mname">
+                        <span>@i.mname</span>
+                    </a>
+                </li>
+            }
+        }
+    }
+</ul>

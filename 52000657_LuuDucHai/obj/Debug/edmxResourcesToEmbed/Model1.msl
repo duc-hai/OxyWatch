@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OxyWatchModelStoreContainer" CdmEntityContainer="OxyWatchEntities1">
+    <EntitySetMapping Name="menus">
+      <EntityTypeMapping TypeName="OxyWatchModel.menu">
+        <MappingFragment StoreEntitySet="menu">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="mname" ColumnName="mname" />
+          <ScalarProperty Name="link" ColumnName="link" />
+          <ScalarProperty Name="meta" ColumnName="meta" />
+          <ScalarProperty Name="hide" ColumnName="hide" />
+          <ScalarProperty Name="arrange" ColumnName="arrange" />
+          <ScalarProperty Name="datebegin" ColumnName="datebegin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

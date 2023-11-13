@@ -1,0 +1,35 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.banner>
+<div class="slider-default bannerslider">
+    <div class="hrv-banner-container">
+        <div class="hrvslider">
+            <ul class="slides">
+                @foreach (var i in Model)
+                {
+
+                    <li>
+                        <a href="@i.link" class="hrv-url">
+                            <img class="img-responsive" src="~/Uploads/banners/@i.src" alt="@i.title2" />
+                        </a>
+                        <div id="bann-@i.id" class="hrv-caption hrv-banner-caption">
+                            <div class="container">
+                                <div class="hrv-caption-inner">
+                                    <div class="hrv-banner-content slider-@i.id">
+                                        <h2 class="hrv-title1">@i.title1</h2>
+                                        <h3 class="hrv-title2">@i.title2</h3>
+                                        <a href="@i.link" class="hrv-url">Xem ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    for (let i = 1; i < 4; i++) {
+        document.getElementById("bann-" + i).id = "hrv-banner-caption" + i 
+    }
+</script>

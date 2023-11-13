@@ -1,0 +1,23 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.news>
+
+@foreach (var i in Model)
+{
+    <div class="article seller-item">
+
+        <div class="sellers-img">
+            <a href="@ViewBag.meta/@i.meta" class="products-block-image content_img clearfix">
+                <img src="~/Content/uploads/imgs/news/@i.image" alt="@i.name" />
+            </a>
+        </div>
+
+        <div class="post-content has-sellers-img ">
+            <a href="@ViewBag.meta/@i.meta">@i.name</a>
+            <span class="date">
+                <i class="fa fa-calendar-o"></i>
+                @(i.datebegin.HasValue ? i.datebegin.Value.ToString("dd/MM/yyyy") : "")
+            </span>
+        </div>
+    </div>
+}
+
+

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.product>
+
+@{
+    ViewBag.Title = "Tìm kiếm";
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<style>
+    .title-search {
+        font-weight: 500;
+        font-size: 20px;
+        margin: 0 0 20px;
+        line-height: 1.2;
+        text-align: left;
+        text-transform: none;
+    }
+</style>
+<section id="content" class="clearfix container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="main-content">
+                <div class="product-list clearfix">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <aside class="styled_header  use_icon ">
+                                <p class="title-search">
+                                    Kết quả tìm kiếm cho từ khóa: 
+                                    <span style="font-size: 18px; font-weight: 400;">@ViewBag.keySearch</span>
+                                </p>
+                                <span class="icon"><img src="~/Uploads/images/icon_featured.png?v=90" alt=""></span>
+                            </aside>
+                        </div>
+                    </div>
+
+                    <div class="row content-product-list products-resize">
+                        @foreach (var i in Model)
+                        {
+                            <div class="col-md-3 col-sm-6 col-xs-6 pro-loop">
+                                <div class="product-block product-resize">
+                                    <div class="product-img image-resize view view-third">
+
+                                        <div class="product-sale">
+                                            <span><label class="sale-lb">- </label> @CalSale(@i.oldPrice, @i.newPrice)%</span>
+                                        </div>
+
+                                        <a href="/@ViewBag.meta/@i.meta" title="@i.name">
+                                            <img class="first-image  has-img" alt="@i.name"
+                                                 src="~/Uploads/products/@i.firstImg" />
+
+                                            <img class="second-image" src="~/Uploads/products/@i.secondImg"
+                                                 alt="@i.name" />
+
+                                        </a>
+                                        <div class="actionss">
+                                            <div class="btn-cart-products">
+                                                <a href="them-gio-hang?productId=@i.id&quantity=1">
+                                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                            <div class="view-details">
+                                                <a href="/@ViewBag.meta/@i.meta" class="view-detail">
+                                                    <span><i class="fa fa-info-circle"> </i></span>
+                                                </a>
+                                            </div>
+                                            <div class="btn-quickview-products">
+                                                <a href="javascript:void(0);" class="quickview"
+                                                   data-handle="/@ViewBag.meta/@i.meta"><i class="fa fa-eye"></i></a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="product-detail clearfix">
+                                        <h3 class="pro-name">
+                                            <a href="/@ViewBag.meta/@i.meta"
+                                               title="@i.name">@i.name</a>
+                                        </h3>
+                                        <div class="pro-prices">
+                                            <p class="pro-price">@Currency(@i.newPrice)</p>
+                                            <p class="pro-price-del text-left"><del class="compare-price">@Currency(@i.oldPrice)</del></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@{ //hàm dùng để format integer dưới dạng currency
+    string Currency(int? curr)
+    {
+        return String.Format("{0:#,#.}", curr) + "đ";
+    }
+}
+
+
+@{ //hàm tính phần trăm giảm giá. Công thức sẽ là lấy giá mới chia giá gốc nhân 100 và lấy 100 trừ số hiện tại
+    double CalSale(int? oldPrice, int? newPrice)
+    {
+        return 100 - Math.Round(Convert.ToDouble(newPrice) / Convert.ToDouble(oldPrice) * 100);
+    }
+}
+

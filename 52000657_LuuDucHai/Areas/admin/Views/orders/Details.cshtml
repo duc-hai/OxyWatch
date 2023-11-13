@@ -1,0 +1,186 @@
+﻿@model _52000657_LuuDucHai.Models.order
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+<style>
+    .card {
+        border: 1px solid var(--bs-link-hover-color);
+    }
+
+    .header-card {
+        margin-bottom: 10px;
+        background-color: var(--bs-link-hover-color);
+        padding: 10px 18px;
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid #ccc;
+    }
+
+    .header-title {
+        margin: 0;
+        color: #fff;
+    }
+
+    .control-label {
+        text-align: right;
+        line-height: 38px;
+    }
+
+    .form-group {
+        margin-top: 10px;
+    }
+
+    .control-label-unset {
+        text-align: right;
+    }
+
+    #hide {
+        width: 16px;
+        height: 16px;
+    }
+
+    .col-md-3 {
+        text-align: right;
+    }
+</style>
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Chi tiết đơn hàng</h4>
+                    </div>
+                    <div class="card-body">
+                        <dl class="dl-horizontal row">
+                            <dt class="col-md-3">
+                                @Html.Label("Mã vận đơn")
+                            </dt>
+
+                            <dd class="col-md-3" id="id-order">
+                                @Html.DisplayFor(model => model.id)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Username/ID khách hàng")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @(ViewBag.usernameCus != null ? ViewBag.usernameCus : @Html.DisplayFor(model => model.customerId))
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Họ tên")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @Html.DisplayFor(model => model.fullName)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Trạng thái")
+                            </dt>
+
+                            <dd class="col-md-3" id="status">
+                                @Html.DisplayFor(model => model.status)
+
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Ngày đặt hàng")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @*@Html.DisplayFor(model => model.datebegin)*@
+                                @(Model.datebegin.HasValue ? Model.datebegin.Value.ToString() : "")
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Địa chỉ")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @*@Html.DisplayFor(model => model.address)*@
+                                @(Model.address + "," + @Model.locationDistrict + "," + @Model.locationProvince)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Số điện thoại")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @Html.DisplayFor(model => model.phone)
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Phương thức thanh toán")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @(Model.payment_method == "1" ? "Thanh toán khi nhận hàng" : "Chuyển khoản")
+                                @*@Html.DisplayFor(model => model.payment_method)*@
+                            </dd>
+
+                            <dt class="col-md-3">
+                                @Html.Label("Email")
+                            </dt>
+
+                            <dd class="col-md-3">
+                                @Html.DisplayFor(model => model.email)
+                            </dd>
+                        </dl>
+                        <hr />
+                        @Html.Action("getListProduct", "orders", new { id = Model.id })
+
+                        <div>
+                            <p>
+                                @*@Html.ActionLink("Cập nhật trạng thái đơn hàng", "Edit", new { id = Model.id })*@
+                                <a id="update-status" style="cursor: pointer" href="">Cập nhật trạng thái đơn hàng</a> |
+                                @Html.ActionLink("Quay lại", "Index")
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="alert-message" class="alert alert-success" style="position: fixed; right: 20px; bottom: 0; display: none">
+        
+    </div>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    document.getElementById('update-status').addEventListener('click', function (e) {
+        e.preventDefault()
+        let status = document.getElementById('status').innerText.trim()
+        let newStatus = prompt('Vui lòng nhập trạng thái mới cho đơn hàng', status)
+        let id = document.getElementById('id-order').innerText.trim()
+        $.ajax({
+            url: '/orders/updateStatus',
+            type: 'POST',
+            data: { id: id, status: newStatus },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                if (res.status) {
+                    document.getElementById('status').innerText = newStatus.trim()
+                    const alert = document.getElementById('alert-message')
+                    if (alert) {
+                        alert.innerText = `Đã cập nhật trạng thái thành ${newStatus.trim()}`
+                        alert.style.display = 'block'
+                        setTimeout(function () {
+                            alert.style.display = 'none'
+                        }, 3000)
+                    }
+                }
+            },
+        })    
+    })
+</script>

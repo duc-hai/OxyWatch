@@ -1,0 +1,796 @@
+﻿@model _52000657_LuuDucHai.Models.product
+
+@{
+    ViewBag.Title = Model.name;
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+@{ //hàm dùng để format integer dưới dạng currency
+    string Currency(int? curr)
+    {
+        return String.Format("{0:#,#.}", curr) + "đ";
+    }
+}
+
+
+@{ //hàm tính phần trăm giảm giá. Công thức sẽ là lấy giá mới chia giá gốc nhân 100 và lấy 100 trừ số hiện tại
+    double CalSale(int? oldPrice, int? newPrice)
+    {
+        return 100 - Math.Round(Convert.ToDouble(newPrice) / Convert.ToDouble(oldPrice) * 100);
+    }
+}
+
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="ie9 no-js"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="no-js" lang="vi">
+<!--<![endif]-->
+<head>
+    <link rel="shortcut icon" href="~/Uploads/images/favicon.png" type="image/png" />
+    <meta charset="utf-8" />
+  
+    <meta name="robots" content="index,follow" />
+
+    <meta name="revisit-after" content="1 day" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="HandheldFriendly" content="true">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0' name='viewport' />
+    <noscript>
+        <img height='1' width='1' style='display:none'
+             src='https://www.facebook.com/tr?id=905600829489553&amp;ev=PageView&amp;noscript=1' />
+    </noscript>
+    <script type='text/javascript'>
+        //<![CDATA[
+        if ((typeof Haravan) === 'undefined') {
+            Haravan = {};
+        }
+        Haravan.culture = 'vi-VN';
+        Haravan.shop = 'happylive.myharavan.com';
+        Haravan.theme = { "name": "Theme mặc định", "id": 1000229231, "role": "main" };
+        Haravan.domain = 'happylive.vn';
+        //]]>
+    </script>
+    <script>
+        //<![CDATA[
+        (function () { function asyncLoad() { var urls = ["./hstatic.net/652/1000177652/20/2017/4-10/noname.js"]; for (var i = 0; i < urls.length; i++) { var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = urls[i]; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); } } window.attachEvent ? window.attachEvent('onload', asyncLoad) : window.addEventListener('load', asyncLoad, false); })();
+        //]]>
+    </script>
+
+    <script src="~/Scripts/js/jsjquery.min.1.11.0.js"></script>
+    <script src="~/Scripts/js/bootstrap.min.js"></script>
+    @*<script src='~/Scripts/js/option_selection.js' type='text/javascript'></script>*@
+    <script src='~/Scripts/js/api.jquery.js' type='text/javascript'></script>
+
+    <script>
+    var formatMoney = '{{amount}}₫';
+    </script>
+    <script src='~/Scripts/js/default_script.min.js?v=90' type='text/javascript'></script>
+    <link href='~/Scripts/js/default_style.min.css?v=90' rel='stylesheet' type='text/css' media='all' />
+
+    <!--[if lt IE 9]>
+    <script src="./hstatic.net/0/0/global/design/theme-default/html5shiv.js"></script>
+    <![endif]-->
+    <script src="~/Scripts/js/jquery-migrate-1.2.0.min.js"></script>
+    <script src='~/Scripts/js/jquery.touchSwipe.min.js' type='text/javascript'></script>
+
+    <script src="~/Scripts/js/haravan.plugin.1.0.js"></script>
+
+    <script src='~/Scripts/js/jquery.elevatezoom.min.js?v=90' type='text/javascript'></script>
+
+    @*Comment 2 lines*@
+    <script src='~/Scripts/js/jquery.flexslider.js?v=2' type='text/javascript'></script>
+    <link href='~/Scripts/js/flexslider.css?v=2' rel='stylesheet' type='text/css' media='all' />
+
+    <script src='~/Scripts/js/scripts.js?v=90' type='text/javascript'></script>
+
+
+    <link rel="stylesheet" type="text/css" href="~/Content/css/roboto.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="~/Content/css/bootstrap.3.3.1.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <link href='~/Content/css/font-awesome.min.css' rel='stylesheet' type='text/css' media='all' />
+
+    <link href='~/Content/css/styles.css?v=90' rel='stylesheet' type='text/css' media='all' />
+
+    <style>
+        #product {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="page">
+        <div id="quick-view-modal" class="wrapper-quickview" style="display:none;">
+            <div class="quickviewOverlay"></div>
+            <div class="jsQuickview">
+                <div class="modal-header clearfix" style="width:100%">
+                    <a href="#" class="quickview-title text-left" title=""><h4 class="p-title modal-title"></h4></a>
+                    <div class="quickview-close">
+                        <a href="javascript:void(0);"><i class="fa fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="quickview-image image-zoom">
+                        <img class="p-product-image-feature" src="" alt="">
+                    </div>
+                    <div id="quickview-sliderproduct">
+                        <div class="quickview-slider">
+                            <ul class="slides"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <form id="form-quickview" method="post" action="/cart/add">
+                        <div class="quickview-information">
+
+                            <div class="form-input">
+                                <div class="quickview-price product-price">
+                                    <span></span><del></del>
+                                </div>
+                            </div>
+                            <div class="quickview-variants variant-style clearfix">
+                                <select name="id" class="" id="quickview-select"></select>
+                            </div>
+                            <div class="quickview-description"></div>
+                            <div class="form-input ">
+                                <label>Số lượng</label>
+
+                                <input id="quantity-quickview" name="quantity" type="number" min="1" value="1" />
+                            </div>
+
+                            <div class="form-input" style="width: 100%">
+                                <button type="submit" class="btn-detail  btn-color-add btn-min-width btn-mgt btn-addcart">Thêm vào giỏ</button>
+                                <button disabled class="btn-detail addtocart btn-color-add btn-min-width btn-mgt btn-soldout">Hết hàng</button>
+                                <div class="qv-readmore">
+                                    <span> hoặc </span><a class="read-more p-url" href="" role="button">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <section id="page_content" class="">
+            <div id="pageContainer" class="clearfix">
+
+                <section id="content" class="clearfix container">
+                    <div class="row">
+                        <div id="product" class="content-pages" data-sticky_parent>
+                            <div class="col-md-3 col-sm-12 col-xs-12  leftsidebar-col" data-sticky_column>
+                                <div class="group_sidebar">
+
+                                    <div class="list-group navbar-inner ">
+
+
+                                        <div class="mega-left-title btn-navbar title-hidden-sm">
+                                            <h3 class="sb-title">Danh mục </h3>
+                                        </div>
+
+                                        <ul class="nav navs sidebar menu" id='cssmenu'>
+
+
+
+
+                                            <li class="item  first">
+                                                <a href="/collections/onsale">
+                                                    <span>Sản phẩm mới</span>
+                                                </a>
+                                            </li>
+
+
+
+
+
+                                            <li class="item  ">
+                                                <a href="/collections/hot-products">
+                                                    <span>Sản phẩm nổi bật</span>
+                                                </a>
+                                            </li>
+
+
+
+
+
+                                            <li class="item  last">
+                                                <a href="/collections/all">
+                                                    <span>Tất cả sản phẩm</span>
+                                                </a>
+                                            </li>
+
+
+                                        </ul>
+
+                                    </div>
+
+                                    <!-- Banner quảng cáo -->
+                                    <div class="list-group_l banner-left hidden-sm hidden-xs">
+
+                                        <a href="">
+                                            <img src="~/Uploads/images/left_image_ad.jpg">
+                                        </a>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" data-sticky_column>
+                                <div id="wrapper-detail" class="product-page">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div id="surround">
+
+                                                <div class="product-sale">
+
+                                                    <span>
+                                                        <label class="sale-lb">-</label> 33%
+                                                    </span>
+                                                </div>
+
+
+                                                <a class="slide-prev slide-nav" href="">
+                                                    <i class="fa fa-arrow-circle-o-left fa-2"></i>
+                                                </a>
+                                                <a class="slide-next slide-nav" href="">
+                                                    <i class="fa fa-arrow-circle-o-right fa-2"></i>
+                                                </a>
+
+                                                <img class="product-image-feature" src="~/Uploads/products/@Model.firstImg" alt="@Model.name">
+
+
+
+                                                <div id="sliderproduct" class="">
+                                                    <ul class="slides">
+
+                                                        <li class="product-thumb">
+                                                            <a href="#" id="firstImg" data-image="../../@Model.firstImg" data-zoom-image="../../@Model.firstImg" src="~/Uploads/products/@Model.firstImg">
+                                                                <img alt="@Model.name" data-image="../../@Model.firstImg" src="~/Uploads/products/@Model.firstImg">
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="product-thumb">
+                                                            <a href="#" id="secondImg" data-image="../../@Model.secondImg" data-zoom-image="../../@Model.secondImg" src="~/Uploads/products/@Model.secondImg">
+                                                                <img alt="@Model.name" data-image="../../@Model.secondImg" src="~/Uploads/products/@Model.secondImg">
+                                                            </a>
+                                                        </li>
+
+
+                                                    </ul>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <div class="product-title">
+                                                <h1>@Model.name</h1>
+
+                                                <span id="pro_sku"></span>
+
+                                            </div>
+                                            <div class="product-price" id="price-preview">
+
+                                                <span>@Currency(@Model.newPrice)</span><del>@Currency(@Model.oldPrice)</del>
+
+
+                                            </div>
+
+                                            <form id="add-item-form" action="/them-gio-hang" method="get" class="variants clearfix">
+                                                <div class="select clearfix" style="display:none">
+                                                    <input id="productId" name="productId" value="@Model.id" />
+                                                </div>
+
+                                                <div class="select-wrapper ">
+                                                    <label>Số lượng</label>
+                                                    <input id="quantity" type="number" name="quantity" min="1" value="1" class="tc item-quantity" />
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-12 col-sm-6 col-xs-12">
+                                                        <button id="add-to-cart" class=" btn-detail btn-color-add btn-min-width btn-mgt addtocart-modal" name="add">
+                                                            Thêm vào giỏ
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="col-lg-6 col-md-12 col-sm-6 col-xs-12">
+                                                        <button id="buy-now" class=" btn-detail btn-color-buy btn-min-width btn-mgt">
+                                                            Mua ngay
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+
+
+                                            <style>
+                                                .btn-color-add:after {
+                                                    background: url(../../Uploads/images/add-cart.svg) no-repeat center center !important;
+                                                    background-size: 22px !important;
+                                                    background-position: center center !important;
+                                                    background-repeat: no-repeat !important;
+                                                    background-color: rgba(0, 0, 0, 0.2) !important;
+                                                }
+
+                                                .btn-color-buy:after {
+                                                    background: url(../../Uploads/images/add-buy.svg) no-repeat center center !important;
+                                                    background-size: 22px !important;
+                                                    background-position: center center !important;
+                                                    background-repeat: no-repeat !important;
+                                                    background-color: rgba(0, 0, 0, 0.2) !important;
+                                            </style>
+                                            <div class="pt20">
+                                                <!-- Begin tags -->
+                                                @*<div class="tag-wrapper">
+                                    <label>
+                                        Tags:
+                                    </label>
+                                    <ul class="tags">
+
+                                        <li class="active">
+                                            <a href="/collections/all/phu-kien-nam">phụ kiện nam</a>
+                                        </li>
+
+                                        <li class="active">
+                                            <a href="/collections/all/thoi-trang-nam">thời trang nam</a>
+                                        </li>
+
+                                        <li class="active">
+                                            <a href="/collections/all/dong-ho-co">đồng hồ cơ</a>
+                                        </li>
+
+                                        <li class="active">
+                                            <a href="/collections/all/dong-ho">đồng hồ</a>
+                                        </li>
+
+                                        <li class="active">
+                                            <a href="/collections/all/tevise">tevise</a>
+                                        </li>
+
+                                    </ul>
+                                </div>*@
+
+
+                                                <!-- End tags -->
+                                            </div>
+
+
+                                            <div class="pt20">
+                                                <!-- Begin social icons -->
+                                                <div class="addthis_toolbox addthis_default_style ">
+
+                                                    <div class="info-socials-article clearfix">
+                                                        <div class="box-like-socials-article">
+                                                            <div class="fb-send" data-href="/products/dong-ho-nam-tevise-1952-chay-co-cuc-chat">
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-like-socials-article">
+                                                            <div class="fb-like" data-href="/products/dong-ho-nam-tevise-1952-chay-co-cuc-chat" data-layout="button_count" data-action="like">
+                                                            </div>
+                                                        </div>
+                                                        <div class="box-like-socials-article">
+                                                            <div class="fb-share-button" data-href="/products/dong-ho-nam-tevise-1952-chay-co-cuc-chat" data-layout="button_count">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <!-- End social icons -->
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
+                                            <div role="tabpanel" class="product-comment">
+                                                <!-- Nav tabs -->
+                                                <ul class="nav visible-lg visible-md" role="tablist">
+                                                    <li role="presentation" class="active"><a data-spy="scroll" data-target="#mota" href="#mota" aria-controls="mota" role="tab">Mô tả sản phẩm</a></li>
+
+                                                    <li role="presentation">
+                                                        <a data-spy="scroll" href="#binhluan" aria-controls="binhluan" role="tab">Bình luận</a>
+                                                    </li>
+
+
+                                                    <li role="presentation">
+                                                        <a data-spy="scroll" href="#like" aria-controls="like" role="tab">Sản phẩm khác</a>
+                                                    </li>
+
+                                                </ul>
+                                                <!-- Tab panes -->
+
+                                                <div id="mota">
+
+                                                    <div class="title-bl visible-xs visible-sm">
+                                                        <h2>Mô tả</h2>
+                                                    </div>
+
+                                                    <div class="product-description-wrapper">
+
+                                                        <table border="0" cellpadding="4" cellspacing="4"
+                                                               style="height: 227px; border-color: #000000; width: 633px; float: left;" class="mce-item-table"
+                                                               data-mce-style="height: 227px; border-color: #000000; width: 633px; float: left;">
+                                                            <tbody>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Tình trạng</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.status</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Nguồn gốc</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.origin</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Bảo hành</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.warranty</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Chất liệu vỏ</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.caseMaterial</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Chất liệu mặt&nbsp;</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.faceMaterial</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Năng lượng sử dụng</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.energyUsed</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">Chống nước</span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.waterResistant</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">
+                                                                                Kích thước mặt đồng hồ
+                                                                            </span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.faceSize</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 13px;" data-mce-style="height: 13px;">
+                                                                    <td style="width: 318.5px; height: 13px;" data-mce-style="width: 318.5px; height: 13px;">
+                                                                        <strong>
+                                                                            <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">
+                                                                                Kích thước dây đồng hồ
+                                                                            </span>
+                                                                        </strong>
+                                                                    </td>
+                                                                    <td style="width: 332.5px; height: 13px;" data-mce-style="width: 332.5px; height: 13px;">
+                                                                        <span style="font-size: 15pt;" data-mce-style="font-size: 15pt;">: @Model.strapSize</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+
+                                                <div id="binhluan">
+                                                    <div class="title-bl">
+                                                        <h2>Bình luận</h2>
+                                                    </div>
+                                                    <div class="product-comment-fb">
+                                                        <div id="fb-root"></div>
+                                                        <div class="fb-comments" data-href="http://happylive.vn/products/dong-ho-nam-tevise-1952-chay-co-cuc-chat" data-numposts="5" width="100%" data-colorscheme="light"></div>
+                                                        <!-- script comment fb -->
+                                                        <script type="text/javascript">
+                                                            (function (d, s, id) {
+                                                                var js, fjs = d.getElementsByTagName(s)[0];
+                                                                if (d.getElementById(id)) return;
+                                                                js = d.createElement(s); js.id = id;
+                                                                js.src = "./connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.0";
+                                                                fjs.parentNode.insertBefore(js, fjs);
+                                                            }(document, 'script', 'facebook-jssdk'));
+                                                        </script>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12  list-like">
+                                    <div id="like">
+                                        <div class="title-like">
+                                            <h2>Sản phẩm khác</h2>
+                                        </div>
+
+                                        <div class="row product-list ">
+                                            <div class="content-product-list">
+                                                @{ Html.RenderAction("relateProduct", "Product");}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                        @*<script>
+                            $(".product-thumb img").click(function () {
+                                $(".product-thumb").removeClass('active');
+                                $(this).parents('li').addClass('active');
+                                $(".product-image-feature").attr("src", $(this).attr("data-image"));
+                                $(".product-image-feature").attr("data-zoom-image", $(this).attr("data-zoom-image"));
+                            });
+
+                            $(".product-thumb").first().addClass('active');
+
+                        </script>*@
+
+                        <script>
+                            $(document).ready(function(){
+	                            $('a[data-spy=scroll]').click(function(){
+		                            event.preventDefault() ;
+		                            $('body').animate({scrollTop: ($($(this).attr('href')).offset().top - 20) + 'px'}, 500);
+	                            })
+                            });
+
+                            /**
+                            function deleteCart(variant_id){
+	                            var params = {
+		                            type: 'POST',
+		                            url: '/cart/change.js',
+		                            data: 'quantity=0&id=' + variant_id,
+		                            dataType: 'json',
+		                            success: function(cart) {
+			                            if ((typeof callback) === 'function') {
+				                            callback(cart);
+			                            } else {
+
+				                            getCartAjax();
+			                            }
+		                            },
+		                            error: function(XMLHttpRequest, textStatus) {
+			                            Haravan.onError(XMLHttpRequest, textStatus);
+		                            }
+	                            };
+	                            jQuery.ajax(params);
+                            }
+                            **/
+                            // The following piece of code can be ignored.
+                            $(function(){
+	                            $(window).resize(function() {
+		                            $('#info').text("Page width: "+$(this).width());
+	                            });
+	                            $(window).trigger('resize');
+                            });
+
+
+                            var selectCallback = function(variant, selector) {
+	                            if (variant && variant.available) {
+		                            if(variant.featured_image != null)
+		                            {
+			                            $(".product-thumb").removeClass('active');
+			                            $(".product-thumb img[data-image='"+Haravan.resizeImage(variant.featured_image.src,'master')+"']").click().parents('li').addClass('active');
+		                            }
+		                            if (variant.sku != null ){
+			                            jQuery('#pro_sku').html('SKU: ' +variant.sku);
+		                            }
+		                            jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled').html("Thêm vào giỏ");;
+		                            jQuery('#buy-now').removeAttr('disabled').removeClass('disabled').html("Mua ngay").show();
+
+		                            if(variant.price < variant.compare_at_price){
+			                            jQuery('#price-preview').html("<span>" + Haravan.formatMoney(variant.price, "{{amount}}₫") + "</span><del>" + Haravan.formatMoney(variant.compare_at_price, "{{amount}}₫") + "</del>");
+			                            var pro_sold = variant.price ;
+			                            var pro_comp = variant.compare_at_price / 100;
+			                            var sale = 100 - (pro_sold / pro_comp) ;
+			                            var kq_sale = Math.round(sale);
+			                            jQuery('#surround .product-sale span').html("<label class='sale-lb'>- </label> "+kq_sale + '%');
+		                            } else {
+			                            jQuery('#price-preview').html("<span>" + Haravan.formatMoney(variant.price, "{{amount}}₫" + "</span>"));
+		                            }
+
+	                            } else {
+		                            jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled').html("Hết hàng");
+		                            jQuery('#buy-now').addClass('disabled').attr('disabled', 'disabled').html("Hết hàng").hide();
+		                            var message = variant ? "Hết hàng" : "Không có hàng";
+		                            jQuery('#price-preview').html("<span>"+message+ "</span>");
+	                            }
+                            };
+
+                            jQuery(document).ready(function($){
+			                            });
+                        </script>
+
+
+
+                        <script>
+                            $(document).ready(function () {
+                                if ($(".slides .product-thumb").length > 4) {
+                                    $('#sliderproduct').flexslider({
+                                        animation: "slide",
+                                        controlNav: false,
+                                        animationLoop: false,
+                                        slideshow: false,
+                                        itemWidth: 95,
+                                        itemMargin: 10,
+                                    });
+                                }
+                                if ($(window).width() > 960) {
+                                    jQuery(".product-image-feature").elevateZoom({
+                                        gallery: 'sliderproduct',
+                                        scrollZoom: true
+                                    });
+                                } else {
+
+                                }
+                                jQuery('.slide-next').click(function () {
+                                    if ($(".product-thumb.active").prev().length > 0) {
+                                        $(".product-thumb.active").prev().find('img').click();
+                                    }
+                                    else {
+                                        $(".product-thumb:last img").click();
+                                    }
+                                });
+                                jQuery('.slide-prev').click(function () {
+                                    if ($(".product-thumb.active").next().length > 0) {
+                                        $(".product-thumb.active").next().find('img').click();
+                                    }
+                                    else {
+                                        $(".product-thumb:first img").click();
+                                    }
+                                });
+                            });
+                        </script>
+
+                    </div>
+                </section>
+
+                <a href="#" class="scrollToTop ">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+
+                <!--Scroll to Top-->
+                <div id="myCart" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLabel">
+                                    Bạn có <b></b> sản phẩm trong giỏ hàng
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="hrv-close-modal"></span>
+                                </button>
+                            </div>
+                            <form action="/cart" method="post" id="cartform">
+                                <div class="modal-body">
+                                    <table style="width:100%;" id="cart-table">
+                                        <tr>
+                                            <th></th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá tiền</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr class="line-item original">
+                                            <td class="item-image"></td>
+                                            <td class="item-title">
+                                                <a></a>
+                                            </td>
+                                            <td class="item-quantity"></td>
+                                            <td class="item-price"></td>
+                                            <td class="item-delete text-center"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="modal-note">
+                                                <textarea placeholder="Viết ghi chú" id="note" name="note" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="total-price-modal">
+                                                Tổng cộng : <span class="item-total"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:10px;">
+                                        <div class="col-lg-6">
+                                            <div class="comeback">
+                                                <a href="/collections/all">
+                                                    <i class="fa fa-caret-left mr10"></i>Tiếp tục mua hàng
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 text-right">
+                                            <div class="buttons btn-modal-cart">
+                                                <button type="submit" class="button-default" id="checkout" name="checkout">
+                                                    Đặt hàng
+                                                    <i class="fa fa-caret-right"></i>
+                                                </button>
+                                            </div>
+
+                                            <div class="buttons btn-modal-cart">
+                                                <button type="submit" class="button-default" id="update-cart-modal" name="">
+                                                    <i class="fa fa-caret-left"></i>
+                                                    Cập nhật
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            let subArr = document.querySelectorAll(".sub-arrow")
+            for (let i = 1; i < subArr.length; i+=2) {
+                subArr[i].remove()
+            }
+
+
+            //document.getElementById('firstImg').addEventListener('click', function (e) {
+            //    e.preventDefault()
+            //    const image = e.target.getAttribute('data-image')
+            //    document.querySelector('.product-image-feature').setAttribute('src', image)
+            //})
+        });
+    </script>
+</body>
+</html>
+

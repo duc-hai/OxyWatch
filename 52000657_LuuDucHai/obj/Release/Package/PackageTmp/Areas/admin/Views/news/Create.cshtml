@@ -1,0 +1,177 @@
+﻿@model _52000657_LuuDucHai.Models.news
+
+@{
+    ViewBag.Title = "Tạo mới bài viết";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+@section _Header {
+    <style>
+        .card {
+            border: 1px solid var(--bs-link-hover-color);
+        }
+
+        .header-card {
+            margin-bottom: 10px;
+            background-color: var(--bs-link-hover-color);
+            padding: 10px 18px;
+            border-radius: 5px 5px 0px 0px;
+            border: 1px solid #ccc;
+        }
+
+        .header-title {
+            margin: 0;
+            color: #fff;
+        }
+
+        .control-label {
+            text-align: right;
+            line-height: 38px;
+        }
+
+        .form-group {
+            margin-top: 10px;
+        }
+
+        .control-label-unset {
+            text-align: right;
+        }
+
+        #hide {
+            width: 16px;
+            height: 16px;
+        }
+
+        .center-vertical {
+            display: flex;
+            align-items: center;
+        }
+    </style>
+}
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Tạo mới bài viết</h4>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Create", "news", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group row">
+                                    @Html.Label("Tiêu đề", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Hình ảnh", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10 center-vertical">
+                                        <input type="file" name="image" id="image" accept=".jpg,.png,.gif,.jpeg,.bmp" />
+                                        @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Mô tả", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.description, new { @class = "form-control", @rows = 5 })
+                                        @*@Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Chi tiết", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.detail)
+                                        @*@Html.EditorFor(model => model.detail, new { htmlAttributes = new { @class = "form-control" } })*@
+                                        @Html.ValidationMessageFor(model => model.detail, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Meta", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label-unset col-md-2", @for = "hide" })
+                                    <div class="col-md-10 center-vertical">
+                                        <div class="checkbox">
+                                            @{
+                                                bool hide = true;
+                                            }
+                                            @Html.CheckBoxFor(model => hide)
+                                            @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Thứ tự", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Tạo mới" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+                            @Html.ActionLink("Quay lại", "Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section _footer
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="~/Areas/admin/Content/ckeditor/ckeditor.js"></script>
+    <script src="~/Areas/admin/Content/ckfinder/ckfinder.js"></script>
+
+    <script>
+        var editor = CKEDITOR.replace("detail");
+        var editor = CKEDITOR.replace("detail", { height: '600px' });
+        customConfig: '/Areas/admin/Content/ckeditor/config.js';
+    </script>
+
+    <script>
+        function createMetaAuto(title) {
+            let slug;
+            slug = title.toLowerCase();
+            slug = slug.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            return slug;
+        };
+
+        $(document).ready(function () {
+            $("#name").keyup(function () {
+                let text = createMetaAuto($("#name").val())
+                $("#meta").val(text);
+            })
+        })
+    </script>
+}

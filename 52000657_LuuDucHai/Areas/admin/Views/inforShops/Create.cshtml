@@ -1,0 +1,253 @@
+﻿@model _52000657_LuuDucHai.Models.inforShop
+
+@{
+    ViewBag.Title = "Thêm mới thông tin shop";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+@section _Header {
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> @* Thư viện dùng google map *@
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2vjHE-XKvRWGw36FmV6gSJLFjbiigQuU&callback=initMap&v=weekly"
+            defer></script> @* API đến google map *@
+            <style>
+                .card {
+                    border: 1px solid var(--bs-link-hover-color);
+                }
+
+                .header-card {
+                    margin-bottom: 10px;
+                    background-color: var(--bs-link-hover-color);
+                    padding: 10px 18px;
+                    border-radius: 5px 5px 0px 0px;
+                    border: 1px solid #ccc;
+                }
+
+                .header-title {
+                    margin: 0;
+                    color: #fff;
+                }
+
+                .control-label {
+                    text-align: right;
+                    line-height: 38px;
+                }
+
+                .form-group {
+                    margin-top: 10px;
+                }
+
+                .control-label-unset {
+                    text-align: right;
+                }
+
+                #hide {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                .center-vertical {
+                    display: flex;
+                    align-items: center;
+                }
+            </style>
+}
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Tạo mới bài viết</h4>
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Create", "inforShops", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group row">
+                                    @Html.Label("Tên shop", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.shopname, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.shopname, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Logo", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10 center-vertical">
+                                        <input type="file" name="logoshop" id="logoshop" accept=".jpg,.png,.gif,.jpeg,.bmp" />
+                                        @Html.ValidationMessageFor(model => model.logoshop, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row center-vertical">
+                                    @Html.Label("Giới thiệu", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.introduce, new { @class = "form-control", @rows = 5 })
+                                        @Html.ValidationMessageFor(model => model.introduce, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Địa chỉ", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Email", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Số điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Link facebook", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.linkfb, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.linkfb, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Meta", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.meta, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.meta, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Hiển thị", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10 center-vertical">
+                                        <div class="checkbox">
+                                            @{
+                                                bool hide = true;
+                                            }
+                                            @Html.CheckBoxFor(model => hide)
+                                            @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    @Html.Label("Thứ tự", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.order, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.order, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                @* Ẩn 2 ô input lat và lng *@
+                                <div style="display: none">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.lat, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.lat, new { htmlAttributes = new { @class = "form-control"} })
+                                            @Html.ValidationMessageFor(model => model.lat, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.lng, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.lng, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.lng, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @* Map *@
+                                <div class="form-group row">
+                                    <label class="control-label col-md-2">Vị trí</label>
+                                    <div id="map" class="col-md-10" style="height: 300px"></div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Tạo mới" class="btn btn-success" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div>
+                            @Html.ActionLink("Quay lại", "Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section _footer
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script>
+        function createMetaAuto(title) {
+            let slug;
+            slug = title.toLowerCase();
+            slug = slug.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a").replace(/\ /g, '-').replace(/đ/g, "d").replace(/đ/g, "d").replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y").replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u").replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o").replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g, "e").replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            return slug;
+        };
+
+        $(document).ready(function () {
+            $("#shopname").keyup(function () {
+                let text = createMetaAuto($("#shopname").val())
+                $("#meta").val(text);
+            })
+        })
+    </script>
+
+    <script>
+        function initMap() {
+            const myLatlng = { lat: 21.078718, lng: 105.773843 }; //Tạo ra vị trí mặc định
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 18, //Độ zoom của bản đồ
+                center: myLatlng, //Lấy vị trí trung tâm là vị trí mặc định
+            });
+            // Khởi tạo cửa sổ infor, cửa sổ này giúp hiện thông báo trên màn hình để người dùng có thể thấy được
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Bấm vào map để chọn vị trí cửa hàng",
+                position: myLatlng,
+            });
+
+            infoWindow.open(map);
+            // Bắt sự kiện click của người dùng lên google map
+            map.addListener("click", (mapsMouseEvent) => {
+                //Đóng cửa sổ infor hiện tại
+                infoWindow.close();
+                //Tạo cửa sổ infor mới
+                infoWindow = new google.maps.InfoWindow({
+                    position: mapsMouseEvent.latLng, //Lấy vị trí là vị trí mà người dùng đã click
+                });
+                infoWindow.setContent(
+                    "Chọn vị trí tại đây" //Hiện thông báo để người dùng xác nhận
+                );
+                let data = mapsMouseEvent.latLng.toJSON() //Lấy ra dữ liệu và convert nó sang JSON
+                $("#lat").val(Number(JSON.stringify(data.lat, null, 2))) //Lưu dữ liệu tương ứng vào lat và lng
+                $("#lng").val(Number(JSON.stringify(data.lng, null, 2)))
+                infoWindow.open(map);
+            });
+        }
+        window.initMap = initMap;
+    </script>
+}

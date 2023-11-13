@@ -1,0 +1,31 @@
+﻿@model IEnumerable<_52000657_LuuDucHai.Models.news>
+
+@foreach (var i in Model)
+{
+    <div class="news-content">
+        <div class="col-md-5 col-xs-12 col-sm-12 img-article">
+            <div class="art-img">
+                <img src="~/Content/uploads/imgs/news/@i.image" alt="Ảnh bài viết">
+            </div>
+        </div>
+
+        <div class=" col-md-7 col-sm-12  col-xs-12">
+            <!-- Begin: Nội dung bài viết -->
+            <h2 class="title-article"><a href="@ViewBag.meta/@i.meta">@i.name</a></h2>
+            <div class="body-content">
+                <ul class="info-more">
+                    <li>
+                        <i class="fa fa-calendar-o"></i><time pubdate datetime="@i.datebegin">
+                            @(i.datebegin.HasValue ? i.datebegin.Value.ToString("dd/MM/yyyy") : "")
+                        </time>
+                    </li>
+                    <li><i class="fa fa-file-text-o"></i><a href="#"> Tin tức </a> </li>
+                </ul>
+                <p>@i.description</p>
+            </div>
+            <!-- End: Nội dung bài viết -->
+            <a class="readmore btn-rb clear-fix" href="@ViewBag.meta/@i.meta" role="button">Xem tiếp <span class="fa fa-angle-double-right"></span></a>
+        </div>
+    </div>
+    <hr class="line-blog" />
+}

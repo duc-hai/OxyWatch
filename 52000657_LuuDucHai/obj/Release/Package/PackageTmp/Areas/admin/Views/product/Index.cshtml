@@ -1,0 +1,168 @@
+﻿@*@model IEnumerable<_52000657_LuuDucHai.Models.product>*@
+@model _52000657_LuuDucHai.Models.category
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/admin/Views/Shared/_MyLayout.cshtml";
+}
+
+@section _Header {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.js"></script>
+    <style>
+        .card {
+            border: 1px solid var(--bs-link-hover-color);
+        }
+
+        .header-card {
+            margin-bottom: 10px;
+            background-color: var(--bs-link-hover-color);
+            padding: 10px 18px;
+            border-radius: 5px 5px 0px 0px;
+            border: 1px solid #ccc;
+        }
+
+        .header-title {
+            margin: 0;
+            color: #fff;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .no-center {
+            text-align: left;
+        }
+
+        th {
+            border-top: 1px solid #ccc;
+            text-align: center !important;
+        }
+
+        th, td {
+            border-right: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+        }
+
+        td {
+            line-height: 175%;
+        }
+
+        #data-table_length {
+            margin-bottom: 17px;
+        }
+
+        .dataTables_info,
+        #data-table_paginate {
+            margin-top: 6px;
+        }
+
+        .btn-add {
+            background-color: tomato;
+            color: #fff;
+        }
+
+            .btn-add:hover {
+                background-color: tomato;
+                opacity: 0.7;
+                color: #fff;
+            }
+
+        .align-right {
+            text-align: right;
+        }
+
+        #category {
+            width: 20%;
+            margin-right: 20px;
+        }
+
+        .justify-btn {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .empty-noti {
+            padding: 20px 30px;
+            font-weight: 600;
+            display: block;
+            font-size: 16px;
+        }
+    </style>
+}
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header-card">
+                        <h4 class="header-title">Quản lý sản phẩm</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="align-right justify-btn">
+                            @Html.DropDownListFor(model => model.id, (SelectList)ViewBag.category, " --- Tất cả sản phẩm --- ",
+                                                                                                    new { @class = "form-control", @id = "category" })
+                            <a href="@Url.Action("Create", "product")" class="btn btn-add">
+                                Thêm mới
+                                <i class="bi bi-plus-circle-fill"></i>
+                            </a>
+                        </p>
+                    </div>
+                    <div id="getProduct"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+@section _Footer {
+    <script>
+        $(document).ready(function () {
+            function getProduct() {
+                var categoryId = $('#category').val(); //Lấy ra giá trị là id của thẻ select (id của category)
+                $.ajax({
+                    url: '@Url.Action("getProduct", "product")',
+                    type: "GET",
+                    data: { id: categoryId },
+                    success: function (data) {
+                        if (data.includes("<td>")) { //Nếu dữ liệu trả về có thẻ td (tức khác null) thì render ra danh sách sản phẩm
+                            $("#getProduct").html(data);
+                        }
+                        else { //Nếu không dữ liệu thì render ra thông báo chưa có sản phẩm nào
+                            $("#getProduct").html(`
+                                <span class="center empty-noti">Danh mục này chưa có sản phẩm nào</span>
+                            `);
+                        }
+                    },
+                    error: function (data) {
+                        alert("something went wrong.");
+                    }
+                });
+            }
+            getProduct();
+            //Khi chọn một danh mục trong thẻ select, sẽ lấy ra các sản phẩm tương ứng
+            $("#category").change(function () {
+                getProduct();
+            })
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#data-table').DataTable({
+                responsive: true
+            });
+        })
+    </script>
+}
