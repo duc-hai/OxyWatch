@@ -11,6 +11,8 @@ OxyWatch is an e-commerce website for selling watches. The project includes many
 - Admin: Manage posts, banners, categories, products, orders, Google Maps locations...
 - Use case diagram:
   ![title](https://res.cloudinary.com/dmjsmmt3h/image/upload/v1711948655/u4jaykzqtxmetuudpqnt.png)
+- Database:
+  ![title](https://res.cloudinary.com/dmjsmmt3h/image/upload/v1711949487/ez0erekwgmgxa6foxjst.png)
 
 ### Role
 - Luu Duc Hai: Did steps from analysis and design to system implementation
