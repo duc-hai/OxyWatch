@@ -10,9 +10,11 @@ OxyWatch is an e-commerce website for selling watches. The project includes many
 - Client: View listings, log in with Facebook, cart, order, send order emails...
 - Admin: Manage posts, banners, categories, products, orders, Google Maps locations...
 - Use case diagram:
+  
   ![title](https://res.cloudinary.com/dmjsmmt3h/image/upload/v1711948655/u4jaykzqtxmetuudpqnt.png)
   
 - Database:
+  
   ![title](https://res.cloudinary.com/dmjsmmt3h/image/upload/v1711949487/ez0erekwgmgxa6foxjst.png)
 
 ### Role
